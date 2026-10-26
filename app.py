@@ -149,6 +149,7 @@ def delete_recipe(recipe_id):
     return redirect(url_for("index"))
 
 
+init_db()
+
 if __name__ == "__main__":
-    init_db()
-    app.run(debug=True)
+    app.run(debug=False)
