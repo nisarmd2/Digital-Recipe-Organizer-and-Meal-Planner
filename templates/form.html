@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}RecipeBox | {{ page_title }}{% endblock %}
+{% block content %}
+<section class="form-wrap">
+  <a class="back-link" href="{{ url_for('index') }}">← Back to recipes</a>
+  <h1>{{ page_title }}</h1>
+  <p class="muted">Fields marked with * are required.</p>
+  <form method="post" class="recipe-form">
+    <label>Recipe name *<input name="name" required maxlength="100" value="{{ recipe.name if recipe else '' }}" placeholder="e.g. Vegetable pasta"></label>
+    <label>Category *
+      <select name="category" required>
+        {% set current = recipe.category if recipe else '' %}
+        {% for cat in ['Breakfast', 'Lunch', 'Dinner', 'Snacks', 'Dessert', 'Drinks', 'Other'] %}
+          <option value="{{ cat }}" {% if current == cat %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Ingredients *<textarea name="ingredients" required rows="3" placeholder="List ingredients separated by commas">{{ recipe.ingredients if recipe else '' }}</textarea></label>
+    <label>Instructions *<textarea name="instructions" required rows="4" placeholder="Describe the steps">{{ recipe.instructions if recipe else '' }}</textarea></label>
+    <label>Preparation time (minutes) *<input type="number" name="prep_minutes" required min="0" value="{{ recipe.prep_minutes if recipe else 15 }}"></label>
+    <button class="button primary" type="submit">Save recipe</button>
+  </form>
+</section>
+{% endblock %}
